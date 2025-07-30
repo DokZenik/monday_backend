@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01
+      author: you
+      changes:
+        - sqlFile:
+            path: sql/subject/01-create-subjects.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: 02
+      author: you
+      changes:
+        - sqlFile:
+            path: sql/teacher/01-create-teachers.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: 03
+      author: you
+      changes:
+        - sqlFile:
+            path: sql/student/01-create-students.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: 04
+      author: you
+      changes:
+        - sqlFile:
+            path: sql/course/01-create-courses.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: 05
+      author: you
+      changes:
+        - sqlFile:
+            path: sql/assigment/01-create-assignments.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: 06
+      author: you
+      changes:
+        - sqlFile:
+            path: sql/grade/01-create-grades.sql
+            relativeToChangelogFile: true
