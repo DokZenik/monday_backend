@@ -23,6 +23,6 @@ public class StudentEntity {
     private String groupName;
 
     public StudentResponse toResponse() {
-        return new StudentResponse(id,fullName,groupName);
+        return new StudentResponse(id, fullName, groupName);
     }
 }
