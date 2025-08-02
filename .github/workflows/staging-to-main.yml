@@ -6,39 +6,39 @@ on:
       - staging
 
 permissions:
-  contents: write
+  contents: read
   pull-requests: write
 
 jobs:
   create-pr:
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
 
     steps:
-      - name: Checkout staging branch
-        uses: actions/checkout@v4
-        with:
-          ref: staging
-          fetch-depth: 0
-
-      - name: Configure Git
+      - name: Check for existing PR
+        id: check_pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if gh pr list --repo "$GH_REPO" --head "staging" --base "main" --json "number" | grep -q "number"; then
+            echo "A PR from staging to main already exists. Skipping."
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No existing PR found. Proceeding to create one."
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
 
-      - name: Set dynamic branch name
-        id: vars
-        run: echo "BRANCH=sync-staging-to-main-$(date +%Y%m%d%H%M%S)" >> "$GITHUB_OUTPUT"
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          base: main
-          branch: ${{ steps.vars.outputs.BRANCH }}
-          title: "Auto PR: Sync staging → main"
-          body: |
-            This PR was automatically created after a push to `staging`.
-            Please review and merge if everything is OK.
-          labels: auto-pr
-          delete-branch: true
-
+      - name: Create Pull Request using GitHub CLI
+        if: steps.check_pr.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh pr create \
+            --repo "$GH_REPO" \
+            --base "main" \
+            --head "staging" \
+            --title "🚀 Auto PR: Sync staging → main" \
+            --body "This PR was automatically created after a push to \`staging\`. Please review and merge if everything is OK." \
+            --label "auto-pr"
