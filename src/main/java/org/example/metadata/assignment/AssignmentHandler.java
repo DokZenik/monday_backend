@@ -26,6 +26,7 @@ public class AssignmentHandler {
 
     private final AssignmentService assignmentService;
 
+
     @Operation(summary = "Create a new assignment")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Assignment created successfully",
