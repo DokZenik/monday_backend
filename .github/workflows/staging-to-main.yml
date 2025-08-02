@@ -25,10 +25,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Create sync branch from staging
-        run: |
-          git checkout -b sync-staging-to-main
-
       - name: Set dynamic branch name
         id: vars
         run: echo "BRANCH=sync-staging-to-main-$(date +%Y%m%d%H%M%S)" >> "$GITHUB_OUTPUT"
