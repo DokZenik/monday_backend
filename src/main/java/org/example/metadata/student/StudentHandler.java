@@ -67,11 +67,11 @@ public class StudentHandler {
 
     @Operation(summary = "Delete student by id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Student deleted successfully",
+        @ApiResponse(responseCode = "200", description = "Student deleted successfully",
                     content = @Content(schema = @Schema(implementation = StudentResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Student not found",
+        @ApiResponse(responseCode = "400", description = "Student not found",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Server error",
+        @ApiResponse(responseCode = "500", description = "Server error",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @DeleteMapping("/{id}")
