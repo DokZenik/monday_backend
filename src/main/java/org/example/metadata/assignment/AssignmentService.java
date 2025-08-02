@@ -1,0 +1,49 @@
+package org.example.metadata.assignment;
+
+import lombok.RequiredArgsConstructor;
+import org.example.metadata.assignment.model.AssignmentCreateRequest;
+import org.example.metadata.assignment.model.AssignmentEntity;
+import org.example.metadata.assignment.model.AssignmentResponse;
+import org.example.metadata.assignment.model.AssignmentsResponse;
+import org.example.metadata.exceptions.MondayException;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class AssignmentService {
+
+    private final AssignmentRepository assignmentRepository;
+
+    public AssignmentResponse create(AssignmentCreateRequest request) {
+        return assignmentRepository.save(request.toEntity()).toResponse();
+    }
+
+    public AssignmentsResponse getAll() {
+        Iterator<AssignmentEntity> iterator = assignmentRepository.findAll().iterator();
+        List<AssignmentResponse> coursesResponseList = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+            coursesResponseList.add(iterator.next().toResponse());
+        }
+
+        return new AssignmentsResponse(coursesResponseList);
+    }
+
+    public AssignmentResponse getById(Long id) {
+        return assignmentRepository.findById(id)
+                .map(AssignmentEntity::toResponse)
+                .orElseThrow(() -> new MondayException(String.format("Assignment with id %d not found", id)));
+    }
+
+    public void deleteById(Long id) {
+        try {
+            assignmentRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new MondayException(String.format("Assignment with id %d not found", id));
+        }
+    }
+}
