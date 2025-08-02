@@ -25,7 +25,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Create Pull Request to Main
+      - name: Create sync branch from staging
+        run: |
+          git checkout -b sync-staging-to-main
+
+      - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -36,4 +40,4 @@ jobs:
             This PR was automatically created after a push to `staging`.
             Please review and merge if everything is OK.
           labels: auto-pr
-          draft: false
+          delete-branch: true
