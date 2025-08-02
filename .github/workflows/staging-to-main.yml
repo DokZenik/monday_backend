@@ -41,3 +41,4 @@ jobs:
             Please review and merge if everything is OK.
           labels: auto-pr
           delete-branch: true
+          branch-suffix: timestamp
