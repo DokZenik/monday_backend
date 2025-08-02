@@ -1,10 +1,10 @@
 CREATE TABLE grades
 (
     id            SERIAL PRIMARY KEY,
-    assignment_id INT NOT NULL REFERENCES assignments (id) ON DELETE CASCADE,
-    student_id    INT NOT NULL REFERENCES students (id) ON DELETE CASCADE,
+    assignment_id INT NOT NULL,
+    student_id    INT NOT NULL,
     score         INT,
     feedback      TEXT,
-    graded_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    graded_at     BIGINT,
     CONSTRAINT uq_assignment_student UNIQUE (assignment_id, student_id)
 );
