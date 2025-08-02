@@ -1,11 +1,4 @@
 databaseChangeLog:
-  - changeSet:
-      id: 01
-      author: you
-      changes:
-        - sqlFile:
-            path: sql/subject/01-create-subjects.sql
-            relativeToChangelogFile: true
 
   - changeSet:
       id: 02
