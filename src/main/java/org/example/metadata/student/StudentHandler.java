@@ -28,9 +28,9 @@ public class StudentHandler {
 
     @Operation(summary = "Create a new student")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Student created successfully",
+        @ApiResponse(responseCode = "200", description = "Student created successfully",
                     content = @Content(schema = @Schema(implementation = StudentResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid input",
+        @ApiResponse(responseCode = "400", description = "Invalid input",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping
@@ -40,9 +40,9 @@ public class StudentHandler {
 
     @Operation(summary = "Get all students")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Students retrieved successfully",
+        @ApiResponse(responseCode = "200", description = "Students retrieved successfully",
                     content = @Content(schema = @Schema(implementation = StudentResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid input",
+        @ApiResponse(responseCode = "400", description = "Invalid input",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping
@@ -52,11 +52,11 @@ public class StudentHandler {
 
     @Operation(summary = "Get student by id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Student retrieved successfully",
+        @ApiResponse(responseCode = "200", description = "Student retrieved successfully",
                     content = @Content(schema = @Schema(implementation = StudentResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Student not found",
+        @ApiResponse(responseCode = "400", description = "Student not found",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Server error",
+        @ApiResponse(responseCode = "500", description = "Server error",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping("/{id}")
