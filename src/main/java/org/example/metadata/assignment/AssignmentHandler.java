@@ -1,4 +1,4 @@
-package org.example.metadata.course;
+package org.example.metadata.assignment;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -6,9 +6,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.example.metadata.course.model.CourseCreateRequest;
-import org.example.metadata.course.model.CourseResponse;
-import org.example.metadata.course.model.CoursesResponse;
+import org.example.metadata.assignment.model.AssignmentCreateRequest;
+import org.example.metadata.assignment.model.AssignmentResponse;
+import org.example.metadata.assignment.model.AssignmentsResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,54 +20,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/courses")
+@RequestMapping("/assignments")
 @RequiredArgsConstructor
-public class CourseHandler {
+public class AssignmentHandler {
 
-    private final CourseService courseService;
+    private final AssignmentService assignmentService;
 
-    @Operation(summary = "Create a new course")
+    @Operation(summary = "Create a new assignment")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Course created successfully",
-                    content = @Content(schema = @Schema(implementation = CourseResponse.class))),
+        @ApiResponse(responseCode = "200", description = "Assignment created successfully",
+                    content = @Content(schema = @Schema(implementation = AssignmentResponse.class))),
         @ApiResponse(responseCode = "400", description = "Invalid input",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping
-    public ResponseEntity<CourseResponse> save(@RequestBody CourseCreateRequest course) {
-        return ResponseEntity.ok(courseService.create(course));
+    public ResponseEntity<AssignmentResponse> save(@RequestBody AssignmentCreateRequest assignment) {
+        return ResponseEntity.ok(assignmentService.create(assignment));
     }
 
-    @Operation(summary = "Get all courses")
+    @Operation(summary = "Get all assignments")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Courses retrieved successfully",
-                    content = @Content(schema = @Schema(implementation = CoursesResponse.class))),
+        @ApiResponse(responseCode = "200", description = "Assignment retrieved successfully",
+                    content = @Content(schema = @Schema(implementation = AssignmentsResponse.class))),
         @ApiResponse(responseCode = "400", description = "Invalid input",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping
-    public ResponseEntity<CoursesResponse> getAll() {
-        return ResponseEntity.ok(courseService.getAll());
+    public ResponseEntity<AssignmentsResponse> getAll() {
+        return ResponseEntity.ok(assignmentService.getAll());
     }
 
-    @Operation(summary = "Get course by id")
+    @Operation(summary = "Get assignment by id")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Course retrieved successfully",
-                    content = @Content(schema = @Schema(implementation = CourseResponse.class))),
-        @ApiResponse(responseCode = "400", description = "Student not found",
+        @ApiResponse(responseCode = "200", description = "Assignment retrieved successfully",
+                    content = @Content(schema = @Schema(implementation = AssignmentResponse.class))),
+        @ApiResponse(responseCode = "400", description = "Assignment not found",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(responseCode = "500", description = "Server error",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping("/{id}")
-    public ResponseEntity<CourseResponse> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(courseService.getById(id));
+    public ResponseEntity<AssignmentResponse> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(assignmentService.getById(id));
     }
 
-    @Operation(summary = "Delete course by id")
+    @Operation(summary = "Delete assignment by id")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Course deleted successfully",
-                    content = @Content(schema = @Schema(implementation = CourseResponse.class))),
+        @ApiResponse(responseCode = "200", description = "Assignment deleted successfully",
+                    content = @Content(schema = @Schema(implementation = AssignmentResponse.class))),
         @ApiResponse(responseCode = "400", description = "Course not found",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(responseCode = "500", description = "Server error",
@@ -75,8 +75,8 @@ public class CourseHandler {
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id) {
-        courseService.deleteById(id);
-        return ResponseEntity.ok().body(String.format("Course with id %d deleted successfully", id));
+        assignmentService.deleteById(id);
+        return ResponseEntity.ok().body(String.format("Assignment with id %d deleted successfully", id));
     }
 
 
