@@ -24,13 +24,13 @@ public class TeacherService {
 
     public TeachersResponse getAll() {
         Iterator<TeacherEntity> iterator = teacherRepository.findAll().iterator();
-        List<TeacherResponse> studentResponseList = new ArrayList<>();
+        List<TeacherResponse> teachersResponseList = new ArrayList<>();
 
         while (iterator.hasNext()) {
-            studentResponseList.add(iterator.next().toResponse());
+            teachersResponseList.add(iterator.next().toResponse());
         }
 
-        return new TeachersResponse(studentResponseList);
+        return new TeachersResponse(teachersResponseList);
     }
 
     public TeacherResponse getById(Long id) {
