@@ -12,26 +12,28 @@ permissions:
 jobs:
   create-pr:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout full repo
+      - name: Checkout staging branch
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Получить все коммиты
+          ref: staging
+          fetch-depth: 0
 
-      - name: Ensure we're on latest staging
+      - name: Configure Git
         run: |
-          git checkout staging
-          git pull origin staging
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Create Pull Request to Main
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: main
-          branch: sync-staging-to-main
+          branch: staging
           title: "Auto PR: Sync staging → main"
           body: |
-            This PR was automatically created after a merge into `staging`.
+            This PR was automatically created after a push to `staging`.
             Please review and merge if everything is OK.
           labels: auto-pr
-          delete-branch: true
+          draft: false
