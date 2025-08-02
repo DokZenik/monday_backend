@@ -29,16 +29,20 @@ jobs:
         run: |
           git checkout -b sync-staging-to-main
 
+      - name: Set dynamic branch name
+        id: vars
+        run: echo "BRANCH=sync-staging-to-main-$(date +%Y%m%d%H%M%S)" >> "$GITHUB_OUTPUT"
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: main
-          branch: sync-staging-to-main
+          branch: ${{ steps.vars.outputs.BRANCH }}
           title: "Auto PR: Sync staging → main"
           body: |
             This PR was automatically created after a push to `staging`.
             Please review and merge if everything is OK.
           labels: auto-pr
           delete-branch: true
-          branch-suffix: timestamp
+
