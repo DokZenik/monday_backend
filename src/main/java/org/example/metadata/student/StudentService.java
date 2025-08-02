@@ -40,4 +40,11 @@ public class StudentService {
                 .orElseThrow(() -> new MondayException(String.format("Student with id %d not found", id)));
     }
 
+    public void deleteById(Long id) {
+        try {
+            studentRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new MondayException(String.format("Student with id %d not found", id));
+        }
+    }
 }
