@@ -21,9 +21,10 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: main
-          branch: staging
+          branch: sync-staging-to-main
           title: "Auto PR: Sync staging → main"
           body: |
             This PR was automatically created after a merge into `staging`.
             Please review and merge if everything is OK.
           labels: auto-pr
+          delete-branch: true
