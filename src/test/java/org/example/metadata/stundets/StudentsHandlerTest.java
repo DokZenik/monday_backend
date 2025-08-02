@@ -27,7 +27,7 @@ class StudentsHandlerTest {
 
 
     @Test
-    void shouldReturnStudents() {
+    void studentsApiTest() {
         StudentCreateRequest createRequest = helper.getCreateRequest();
         ResponseEntity<?> response;
 

@@ -30,5 +30,7 @@
         <module name="NoWhitespaceBefore"/>
         <module name="NoWhitespaceAfter"/>
 
+        <module name="UnusedImports"/>
+
     </module>
 </module>
