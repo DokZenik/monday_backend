@@ -13,8 +13,10 @@ jobs:
   create-pr:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout staging
         uses: actions/checkout@v4
+        with:
+          ref: staging
 
       - name: Create Pull Request to Main
         uses: peter-evans/create-pull-request@v6
