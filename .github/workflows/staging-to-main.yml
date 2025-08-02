@@ -1,0 +1,29 @@
+name: Auto PR from Staging to Main
+
+on:
+  push:
+    branches:
+      - staging
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Pull Request to Main
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          branch: staging
+          title: "Auto PR: Sync staging → main"
+          body: |
+            This PR was automatically created after a merge into `staging`.
+            Please review and merge if everything is OK.
+          labels: auto-pr
