@@ -13,10 +13,15 @@ jobs:
   create-pr:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout staging
+      - name: Checkout full repo
         uses: actions/checkout@v4
         with:
-          ref: staging
+          fetch-depth: 0
+
+      - name: Switch to staging
+        run: |
+          git fetch origin
+          git checkout origin/staging -b staging
 
       - name: Create Pull Request to Main
         uses: peter-evans/create-pull-request@v6
