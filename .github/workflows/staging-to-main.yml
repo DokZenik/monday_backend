@@ -16,12 +16,12 @@ jobs:
       - name: Checkout full repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Получить все коммиты
 
-      - name: Switch to staging
+      - name: Ensure we're on latest staging
         run: |
-          git fetch origin
-          git checkout origin/staging -b staging
+          git checkout staging
+          git pull origin staging
 
       - name: Create Pull Request to Main
         uses: peter-evans/create-pull-request@v6
