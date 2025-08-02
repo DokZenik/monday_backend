@@ -52,7 +52,7 @@ public class StudentHandler {
 
     @Operation(summary = "Get student by id")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Student retrieved successfully",
+         @ApiResponse(responseCode = "200", description = "Student retrieved successfully",
                     content = @Content(schema = @Schema(implementation = StudentResponse.class))),
         @ApiResponse(responseCode = "400", description = "Student not found",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
