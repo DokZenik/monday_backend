@@ -5,11 +5,13 @@ on:
     branches:
       - main
       - release/**
+      - feature/**
       - staging
   pull_request:
     branches:
       - main
       - release/**
+      - feature/**
       - staging
 
 jobs:
