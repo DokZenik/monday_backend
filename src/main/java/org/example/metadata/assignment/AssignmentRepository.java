@@ -4,9 +4,12 @@ import org.example.metadata.assignment.model.AssignmentEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface AssignmentRepository extends CrudRepository<AssignmentEntity, Long> {
     Optional<AssignmentEntity> findById(Long id);
+
+    List<AssignmentEntity> findAllByCourseId(Long courseId);
 }
