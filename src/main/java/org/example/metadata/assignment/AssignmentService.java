@@ -33,6 +33,17 @@ public class AssignmentService {
         return new AssignmentsResponse(coursesResponseList);
     }
 
+    public List<AssignmentResponse> getAllByCourseId(Long courseId) {
+        Iterator<AssignmentEntity> iterator = assignmentRepository.findAllByCourseId(courseId).iterator();
+        List<AssignmentResponse> coursesResponseList = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+            coursesResponseList.add(iterator.next().toResponse());
+        }
+
+        return coursesResponseList;
+    }
+
     public AssignmentResponse getById(Long id) {
         return assignmentRepository.findById(id)
                 .map(AssignmentEntity::toResponse)

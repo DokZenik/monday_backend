@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.example.metadata.TestcontainersConfiguration;
 import org.example.metadata.assignment.model.AssignmentCreateRequest;
 import org.example.metadata.assignment.model.AssignmentResponse;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -25,6 +28,13 @@ class AssignmentHandlerTest {
 
     private final AssignmentHandlerTestHelper helper = new AssignmentHandlerTestHelper();
 
+    @Autowired
+    private NamedParameterJdbcTemplate jdbc;
+
+    @AfterEach
+    void cleanUp() {
+        jdbc.update("DELETE FROM assignments", new MapSqlParameterSource());
+    }
 
     @Test
     void assignmentApiTest() {
@@ -67,7 +77,7 @@ class AssignmentHandlerTest {
 
         json = (JsonNode) response.getBody();
 
-        assertEquals("Assignment with id 1 not found", json.get("message").asText());
+        assertEquals(String.format("Assignment with id %d not found", responseBody.getId()), json.get("message").asText());
 
 
     }

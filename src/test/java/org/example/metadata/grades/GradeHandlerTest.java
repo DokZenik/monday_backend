@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.example.metadata.TestcontainersConfiguration;
 import org.example.metadata.grades.model.GradeCreateRequest;
 import org.example.metadata.grades.model.GradeResponse;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -24,6 +27,13 @@ class GradeHandlerTest {
 
     private final GradeHandlerTestHelper helper = new GradeHandlerTestHelper();
 
+    @Autowired
+    private NamedParameterJdbcTemplate jdbc;
+
+    @AfterEach
+    void cleanUp() {
+        jdbc.update("DELETE FROM grades", new MapSqlParameterSource());
+    }
 
     @Test
     void gradeApiTest() {
