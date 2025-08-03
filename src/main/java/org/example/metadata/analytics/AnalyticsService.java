@@ -9,7 +9,6 @@ import org.example.metadata.analytics.models.AnalyticsResponse;
 import org.example.metadata.analytics.models.RowItem;
 import org.example.metadata.assignment.AssignmentService;
 import org.example.metadata.assignment.model.AssignmentResponse;
-import org.example.metadata.assignment.model.AssignmentsResponse;
 import org.example.metadata.course.CourseService;
 import org.example.metadata.course.model.CourseResponse;
 import org.example.metadata.grades.model.GradeResponse;

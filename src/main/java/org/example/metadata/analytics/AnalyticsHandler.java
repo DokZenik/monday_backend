@@ -24,9 +24,9 @@ public class AnalyticsHandler {
 
     @Operation(summary = "Get analytics")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Analytics retrieved successfully",
+        @ApiResponse(responseCode = "200", description = "Analytics retrieved successfully",
                     content = @Content(schema = @Schema(implementation = AnalyticsResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid input",
+        @ApiResponse(responseCode = "400", description = "Invalid input",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping
