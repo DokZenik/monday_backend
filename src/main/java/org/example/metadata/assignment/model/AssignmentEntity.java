@@ -45,8 +45,6 @@ public class AssignmentEntity {
     @Column("max_score")
     private Integer maxScore;
 
-    @Column("grade")
-    private Integer grade;
 
     @Column("due_date")
     private LocalDateTime dueDate;
@@ -61,13 +59,26 @@ public class AssignmentEntity {
 
         Duration between = Duration.between(now, dueDate);
 
-        String timeRemaining = String.format("%d days, %d hours", between.toHours() / 24, Math.abs(between.toHours() % 24));
+        String timeRemaining =
+                String.format("%d days, %d hours", between.toHours() / 24, Math.abs(between.toHours() % 24));
 
         try {
             List<AttachedFile> attachedFiles = new ObjectMapper().readValue(getAttachedFiles(), new TypeReference<>() {
             });
 
-            return new AssignmentResponse(id, title, courseId, teacherId, type.getType(), status.getStatus(), description, maxScore, grade, dueDate, attachedFiles, timeRemaining, null);
+            return new AssignmentResponse(
+                    id,
+                    title,
+                    courseId,
+                    teacherId,
+                    type.getType(),
+                    status.getStatus(),
+                    description,
+                    maxScore,
+                    dueDate,
+                    attachedFiles,
+                    timeRemaining,
+                    null);
 
         } catch (JsonProcessingException e) {
             throw new MondayException("Can't deserialize attached files");

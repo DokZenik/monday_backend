@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.example.metadata.TestcontainersConfiguration;
 import org.example.metadata.assignment.model.AssignmentCreateRequest;
 import org.example.metadata.assignment.model.AssignmentResponse;
+import org.example.metadata.assignment.model.AssignmentUpdateRequest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ class AssignmentHandlerTest {
     @Test
     void assignmentApiTest() {
         AssignmentCreateRequest createRequest = helper.getCreateRequest();
+        AssignmentUpdateRequest updateRequest = helper.getUpdateRequest();
         ResponseEntity<?> response;
 
         response = restTemplate
@@ -68,6 +70,9 @@ class AssignmentHandlerTest {
         assertNotNull(responseBody);
         assertEquals(createRequest.getTitle(), responseBody.getTitle());
 
+
+        responseBody = restTemplate.patchForObject(String.format("/assignments/%d",responseBody.getId()),updateRequest, AssignmentResponse.class);
+        assertTrue(responseBody.getTitle().equals(updateRequest.getTitle()));
 
         restTemplate.delete("/assignments/" + responseBody.getId());
 

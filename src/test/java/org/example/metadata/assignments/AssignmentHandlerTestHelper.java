@@ -1,6 +1,7 @@
 package org.example.metadata.assignments;
 
 import org.example.metadata.assignment.model.AssignmentCreateRequest;
+import org.example.metadata.assignment.model.AssignmentUpdateRequest;
 import org.example.metadata.assignment.model.AttachedFile;
 
 import java.time.LocalDateTime;
@@ -23,7 +24,24 @@ public class AssignmentHandlerTestHelper {
                 "Pending",
                 "Task Description",
                 100,
-                null,
+                LocalDateTime.now(),
+                files);
+    }
+
+    public AssignmentUpdateRequest getUpdateRequest() {
+
+        List<AttachedFile> files = new ArrayList<>();
+        files.add(new AttachedFile("file1_title","file1_url"));
+        files.add(new AttachedFile("file2_title","file2_url"));
+
+        return new AssignmentUpdateRequest(
+                "My updated task",
+                123L,
+                456L,
+                "Test",
+                "Pending",
+                "Task Description",
+                100,
                 LocalDateTime.now(),
                 files);
     }

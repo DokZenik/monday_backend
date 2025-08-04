@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AssignmentCreateRequest {
+public class AssignmentUpdateRequest {
     private String title;
 
     private Long courseId;
@@ -32,12 +32,12 @@ public class AssignmentCreateRequest {
 
     private List<AttachedFile> attachedFiles;
 
-    public AssignmentEntity toEntity() {
+    public AssignmentEntity toEntity(Long id) {
 
         try {
             String files = new ObjectMapper().writeValueAsString(attachedFiles);
             return new AssignmentEntity(
-                    null,
+                    id,
                     title,
                     courseId,
                     teacherId,

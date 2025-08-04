@@ -40,7 +40,6 @@ public class AnalyticsHandlerTestHelper {
                 "Pending",
                 "Task Description",
                 100,
-                null,
                 LocalDateTime.now(),
                 files);
 

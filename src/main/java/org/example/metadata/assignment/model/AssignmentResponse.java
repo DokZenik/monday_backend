@@ -28,8 +28,6 @@ public class AssignmentResponse {
 
     private Integer maxScore;
 
-    private Integer grade;
-
     private LocalDateTime dueDate;
 
     private List<AttachedFile> attachedFiles;
