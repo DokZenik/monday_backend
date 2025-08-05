@@ -21,13 +21,23 @@ public class AssignmentService {
 
     public AssignmentResponse updateById(AssignmentUpdateRequest request, Long assignmentId) {
 
-        AssignmentEntity assignmentEntity = assignmentRepository.findById(assignmentId).orElse(null);
+        AssignmentEntity assignmentEntity = assignmentRepository.findById(assignmentId).get();
 
-        if (assignmentEntity == null) {
-            throw new MondayException("This assignment does not exist");
-        }
+        AssignmentEntity entityToUpdate = request.toEntity(assignmentEntity);
 
-        return assignmentRepository.save(request.toEntity(assignmentId)).toResponse();
+        assignmentRepository.updateAssignment(
+                entityToUpdate.getId(),
+                entityToUpdate.getTitle(),
+                entityToUpdate.getCourseId(),
+                entityToUpdate.getTeacherId(),
+                entityToUpdate.getType(),
+                entityToUpdate.getStatus(),
+                entityToUpdate.getDescription(),
+                entityToUpdate.getMaxScore(),
+                entityToUpdate.getDueDate(),
+                entityToUpdate.getAttachedFiles()
+        );
+        return assignmentRepository.findById(assignmentId).get().toResponse();
     }
 
     public AssignmentsResponse getAll() {

@@ -59,20 +59,23 @@ class AssignmentHandlerTest {
         assertEquals(json.get("_embedded").get("courses").size(), 1);
         assertEquals(json.get("_embedded").get("courses").get(0).get("title").asText(), createRequest.getTitle());
 
-        response = restTemplate.getForEntity("/assignments/" + responseBody.getId() + 1, AssignmentResponse.class);
+        response = restTemplate.getForEntity("/assignments/" + responseBody.getId() + 1, JsonNode.class);
 
         assertTrue(response.getStatusCode().is4xxClientError());
 
-        response = restTemplate.getForEntity("/assignments/" + responseBody.getId(), AssignmentResponse.class);
+        response = restTemplate.getForEntity("/assignments/" + responseBody.getId(), JsonNode.class);
 
-        responseBody = (AssignmentResponse) response.getBody();
+        json = (JsonNode) response.getBody();
 
-        assertNotNull(responseBody);
-        assertEquals(createRequest.getTitle(), responseBody.getTitle());
+        assertNotNull(json);
+        assertEquals(createRequest.getTitle(), json.get("title").asText());
 
+        restTemplate.put(String.format("/assignments/%d", json.get("id").asLong()), updateRequest);
 
-        responseBody = restTemplate.patchForObject(String.format("/assignments/%d",responseBody.getId()),updateRequest, AssignmentResponse.class);
-        assertTrue(responseBody.getTitle().equals(updateRequest.getTitle()));
+        response = restTemplate.getForEntity("/assignments/" + json.get("id").asLong(), JsonNode.class);
+        json = (JsonNode) response.getBody();
+        assertNotNull(json);
+        assertEquals(updateRequest.getTitle(), json.get("title").asText());
 
         restTemplate.delete("/assignments/" + responseBody.getId());
 

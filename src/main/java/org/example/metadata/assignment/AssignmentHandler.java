@@ -83,7 +83,7 @@ public class AssignmentHandler {
         @ApiResponse(responseCode = "500", description = "Server error",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<AssignmentResponse> updateById(
             @PathVariable Long id,
             @RequestBody AssignmentUpdateRequest assignment) {

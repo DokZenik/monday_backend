@@ -16,13 +16,9 @@ import java.util.List;
 public class AssignmentUpdateRequest {
     private String title;
 
-    private Long courseId;
+    private AssignmentType type;
 
-    private Long teacherId;
-
-    private String type;
-
-    private String status;
+    private AssignmentStatus status;
 
     private String description;
 
@@ -32,17 +28,17 @@ public class AssignmentUpdateRequest {
 
     private List<AttachedFile> attachedFiles;
 
-    public AssignmentEntity toEntity(Long id) {
+    public AssignmentEntity toEntity(AssignmentEntity oldEntity) {
 
         try {
             String files = new ObjectMapper().writeValueAsString(attachedFiles);
             return new AssignmentEntity(
-                    id,
+                    oldEntity.getId(),
                     title,
-                    courseId,
-                    teacherId,
-                    AssignmentType.fromString(type),
-                    AssignmentStatus.fromString(status),
+                    oldEntity.getCourseId(),
+                    oldEntity.getTeacherId(),
+                    type,
+                    status,
                     description,
                     maxScore,
                     dueDate,

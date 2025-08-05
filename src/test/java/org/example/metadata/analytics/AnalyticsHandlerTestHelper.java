@@ -2,6 +2,8 @@ package org.example.metadata.analytics;
 
 import org.example.metadata.analytics.models.AnalyticsRequest;
 import org.example.metadata.assignment.model.AssignmentCreateRequest;
+import org.example.metadata.assignment.model.AssignmentStatus;
+import org.example.metadata.assignment.model.AssignmentType;
 import org.example.metadata.assignment.model.AttachedFile;
 import org.example.metadata.course.model.CourseCreateRequest;
 import org.example.metadata.grades.model.GradeCreateRequest;
@@ -36,8 +38,8 @@ public class AnalyticsHandlerTestHelper {
                 "My task",
                 courseId,
                 teacherId,
-                "Test",
-                "Pending",
+                AssignmentType.TEST,
+                AssignmentStatus.PENDING,
                 "Task Description",
                 100,
                 LocalDateTime.now(),

@@ -1,8 +1,6 @@
 package org.example.metadata.assignments;
 
-import org.example.metadata.assignment.model.AssignmentCreateRequest;
-import org.example.metadata.assignment.model.AssignmentUpdateRequest;
-import org.example.metadata.assignment.model.AttachedFile;
+import org.example.metadata.assignment.model.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,8 +18,8 @@ public class AssignmentHandlerTestHelper {
                 "My task",
                 123L,
                 456L,
-                "Test",
-                "Pending",
+                AssignmentType.TEST,
+                AssignmentStatus.PENDING,
                 "Task Description",
                 100,
                 LocalDateTime.now(),
@@ -36,10 +34,8 @@ public class AssignmentHandlerTestHelper {
 
         return new AssignmentUpdateRequest(
                 "My updated task",
-                123L,
-                456L,
-                "Test",
-                "Pending",
+                AssignmentType.TEST,
+                AssignmentStatus.PENDING,
                 "Task Description",
                 100,
                 LocalDateTime.now(),

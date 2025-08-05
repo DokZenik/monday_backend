@@ -20,9 +20,9 @@ public class AssignmentResponse {
 
     private Long teacherId;
 
-    private String type;
+    private AssignmentType type;
 
-    private String status;
+    private AssignmentStatus status;
 
     private String description;
 

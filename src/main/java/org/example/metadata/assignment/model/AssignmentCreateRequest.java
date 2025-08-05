@@ -20,9 +20,9 @@ public class AssignmentCreateRequest {
 
     private Long teacherId;
 
-    private String type;
+    private AssignmentType type;
 
-    private String status;
+    private AssignmentStatus status;
 
     private String description;
 
@@ -41,8 +41,8 @@ public class AssignmentCreateRequest {
                     title,
                     courseId,
                     teacherId,
-                    AssignmentType.fromString(type),
-                    AssignmentStatus.fromString(status),
+                    type,
+                    status,
                     description,
                     maxScore,
                     dueDate,
