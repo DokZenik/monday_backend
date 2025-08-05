@@ -19,5 +19,7 @@ public class GradeResponse {
 
     private String feedback;
 
+    private Long teacherId;
+
     private Long timestamp;
 }

@@ -16,9 +16,11 @@ public class GradeCreateRequest {
 
     private String feedback;
 
+    private Long teacherId;
+
     private Long timestamp;
 
     public GradeEntity toEntity() {
-        return new GradeEntity(null, assignmentId, studentId, score, feedback, timestamp);
+        return new GradeEntity(null, assignmentId, studentId, score, feedback, teacherId, timestamp);
     }
 }

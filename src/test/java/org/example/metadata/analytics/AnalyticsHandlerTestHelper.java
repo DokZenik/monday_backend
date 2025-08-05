@@ -53,6 +53,7 @@ public class AnalyticsHandlerTestHelper {
                 studentId,
                 68,
                 "aboba",
+                1L,
                 1L);
     }
 

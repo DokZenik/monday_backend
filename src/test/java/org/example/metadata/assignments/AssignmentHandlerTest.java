@@ -5,6 +5,7 @@ import org.example.metadata.TestcontainersConfiguration;
 import org.example.metadata.assignment.model.AssignmentCreateRequest;
 import org.example.metadata.assignment.model.AssignmentResponse;
 import org.example.metadata.assignment.model.AssignmentUpdateRequest;
+import org.example.metadata.submission.model.SubmissionCreateRequest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,7 @@ class AssignmentHandlerTest {
     void assignmentApiTest() {
         AssignmentCreateRequest createRequest = helper.getCreateRequest();
         AssignmentUpdateRequest updateRequest = helper.getUpdateRequest();
+        SubmissionCreateRequest submissionCreateRequest = helper.getSubmissionCreateRequest();
         ResponseEntity<?> response;
 
         response = restTemplate
@@ -50,6 +52,10 @@ class AssignmentHandlerTest {
 
         assertNotNull(responseBody);
         assertEquals(createRequest.getTitle(), responseBody.getTitle());
+        assertEquals(Integer.valueOf(0), responseBody.getSubmissions());
+
+        restTemplate.postForEntity(String.format("/assignment/%d/submission", responseBody.getId()), submissionCreateRequest, JsonNode.class);
+        restTemplate.postForEntity(String.format("/assignment/%d/submission", responseBody.getId()), submissionCreateRequest, JsonNode.class);
 
         response = restTemplate.getForEntity("/assignments", JsonNode.class);
         JsonNode json = (JsonNode) response.getBody();
@@ -58,6 +64,7 @@ class AssignmentHandlerTest {
         assertEquals(json.get("_embedded").size(), 1);
         assertEquals(json.get("_embedded").get("courses").size(), 1);
         assertEquals(json.get("_embedded").get("courses").get(0).get("title").asText(), createRequest.getTitle());
+        assertEquals(json.get("_embedded").get("courses").get(0).get("submissions").asInt(), 2);
 
         response = restTemplate.getForEntity("/assignments/" + responseBody.getId() + 1, JsonNode.class);
 

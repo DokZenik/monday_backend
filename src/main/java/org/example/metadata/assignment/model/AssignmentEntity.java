@@ -52,7 +52,7 @@ public class AssignmentEntity {
     @Column("attached_files")
     private String attachedFiles;
 
-    public AssignmentResponse toResponse() {
+    public AssignmentResponse toResponse(Integer submissionCount) {
 
 
         LocalDateTime now = LocalDateTime.now();
@@ -78,7 +78,7 @@ public class AssignmentEntity {
                     dueDate,
                     attachedFiles,
                     timeRemaining,
-                    null);
+                    submissionCount);
 
         } catch (JsonProcessingException e) {
             throw new MondayException("Can't deserialize attached files");

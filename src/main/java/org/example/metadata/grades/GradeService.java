@@ -33,6 +33,10 @@ public class GradeService {
         return new GradesResponse(gradesResponseList);
     }
 
+    public GradeEntity getByAssignmentIdAndStudentId(Long assignmentId, Long studentId) {
+        return gradeRepository.findByAssignmentIdAndStudentId(assignmentId, studentId).orElse(null);
+    }
+
     public void deleteById(Long id) {
         try {
             gradeRepository.deleteById(id);

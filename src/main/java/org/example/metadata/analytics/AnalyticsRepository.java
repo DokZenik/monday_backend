@@ -24,7 +24,8 @@ public class AnalyticsRepository {
                                'score', score,
                                'graded_at', graded_at,
                                'feedback', feedback,
-                                'grade_id', grades.id
+                               'teacher_id', grades.teacher_id,
+                               'grade_id', grades.id
                                 )) AS student_grades
                 from grades
                          left join assignments a on grades.assignment_id = a.id

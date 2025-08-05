@@ -78,7 +78,7 @@ public class AssignmentHandler {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Assignment updated successfully",
                     content = @Content(schema = @Schema(implementation = AssignmentResponse.class))),
-        @ApiResponse(responseCode = "400", description = "Course not found",
+        @ApiResponse(responseCode = "400", description = "Assignment not found",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(responseCode = "500", description = "Server error",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
