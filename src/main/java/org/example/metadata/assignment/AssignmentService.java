@@ -23,21 +23,7 @@ public class AssignmentService {
 
         AssignmentEntity assignmentEntity = assignmentRepository.findById(assignmentId).get();
 
-        AssignmentEntity entityToUpdate = request.toEntity(assignmentEntity);
-
-        assignmentRepository.updateAssignment(
-                entityToUpdate.getId(),
-                entityToUpdate.getTitle(),
-                entityToUpdate.getCourseId(),
-                entityToUpdate.getTeacherId(),
-                entityToUpdate.getType(),
-                entityToUpdate.getStatus(),
-                entityToUpdate.getDescription(),
-                entityToUpdate.getMaxScore(),
-                entityToUpdate.getDueDate(),
-                entityToUpdate.getAttachedFiles()
-        );
-        return assignmentRepository.findById(assignmentId).get().toResponse();
+        return assignmentRepository.save(request.toEntity(assignmentEntity)).toResponse();
     }
 
     public AssignmentsResponse getAll() {
