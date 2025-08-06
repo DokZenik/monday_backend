@@ -21,8 +21,7 @@ public class SubmissionService {
 
     public SubmissionResponse findByAssignmentIdAndStudentId(Long assignmentId, Long studentId) {
         GradeEntity grade = gradeService.getByAssignmentIdAndStudentId(assignmentId, studentId);
-        return submissionRepository.findFirstByAssignmentIdAndStudentIdOrderBySubmittedAtDesc
-                (assignmentId, studentId).orElseThrow(
+        return submissionRepository.findFirst(assignmentId, studentId).orElseThrow(
                         () -> new MondayException(String.format
                                 ("Submission with assignment id %d and student id %d wasn't found",
                                         assignmentId,

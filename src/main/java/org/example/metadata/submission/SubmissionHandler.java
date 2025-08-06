@@ -35,7 +35,7 @@ public class SubmissionHandler {
     @Operation(summary = "Get submission by student id and assignment id")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Submission retrieved successfully",
-                    content = @Content(schema = @Schema(implementation = AssignmentResponse.class))),
+                    content = @Content(schema = @Schema(implementation = SubmissionResponse.class))),
         @ApiResponse(responseCode = "400", description = "Submission not found",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(responseCode = "500", description = "Server error",

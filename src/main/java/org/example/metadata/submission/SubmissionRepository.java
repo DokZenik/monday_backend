@@ -16,7 +16,7 @@ public interface SubmissionRepository extends CrudRepository<SubmissionEntity, L
             "WHERE assignment_id = :assignmentId AND student_id = :studentId " +
             "ORDER BY submitted_at DESC " +
             "LIMIT 1")
-    Optional<SubmissionEntity> findFirstByAssignmentIdAndStudentIdOrderBySubmittedAtDesc(
+    Optional<SubmissionEntity> findFirst(
             @Param("assignmentId") Long assignmentId,
             @Param("studentId") Long studentId
     );

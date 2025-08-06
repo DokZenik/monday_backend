@@ -33,6 +33,7 @@ public class SubmissonHandlerTest {
     @AfterEach
     void cleanUp() {
         jdbc.update("DELETE FROM submissions", new MapSqlParameterSource());
+        jdbc.update("DELETE FROM grades", new MapSqlParameterSource());
     }
 
     @Test

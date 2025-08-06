@@ -1,19 +1,14 @@
 package org.example.metadata.assignment.model;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.metadata.exceptions.MondayException;
+import org.example.metadata.assignment.AssignmentMapper;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -54,36 +49,6 @@ public class AssignmentEntity {
 
     public AssignmentResponse toResponse(Integer submissionCount) {
 
-
-        LocalDateTime now = LocalDateTime.now();
-
-        Duration between = Duration.between(now, dueDate);
-
-        String timeRemaining =
-                String.format("%d days, %d hours", between.toHours() / 24, Math.abs(between.toHours() % 24));
-
-        try {
-            List<AttachedFile> attachedFiles = new ObjectMapper().readValue(getAttachedFiles(), new TypeReference<>() {
-            });
-
-            return new AssignmentResponse(
-                    id,
-                    title,
-                    courseId,
-                    teacherId,
-                    type,
-                    status,
-                    description,
-                    maxScore,
-                    dueDate,
-                    attachedFiles,
-                    timeRemaining,
-                    submissionCount);
-
-        } catch (JsonProcessingException e) {
-            throw new MondayException("Can't deserialize attached files");
-        }
-
-
+        return AssignmentMapper.entityToResponse(this, submissionCount);
     }
 }

@@ -1,11 +1,9 @@
 package org.example.metadata.assignment.model;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.metadata.exceptions.MondayException;
+import org.example.metadata.assignment.AssignmentMapper;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,21 +32,6 @@ public class AssignmentCreateRequest {
 
     public AssignmentEntity toEntity() {
 
-        try {
-            String files = new ObjectMapper().writeValueAsString(attachedFiles);
-            return new AssignmentEntity(
-                    null,
-                    title,
-                    courseId,
-                    teacherId,
-                    type,
-                    status,
-                    description,
-                    maxScore,
-                    dueDate,
-                    files);
-        } catch (JsonProcessingException e) {
-            throw new MondayException("Files can't be saved");
-        }
+        return AssignmentMapper.createRequestToEntity(this);
     }
 }
