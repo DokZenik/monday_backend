@@ -7,6 +7,7 @@ import org.example.metadata.course.CourseMapper;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -21,9 +22,9 @@ public class CourseCreateRequest {
 
     private Long creatorId;
 
-    private List<Long> teacherIds;
+    private Set<Long> teacherIds;
 
-    private List<Long> studentIds;
+    private Set<Long> studentIds;
 
     private LocalDate startDate;
 

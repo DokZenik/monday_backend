@@ -1,12 +1,10 @@
 package org.example.metadata.courses;
 
-import org.example.metadata.course.model.CourseCategory;
-import org.example.metadata.course.model.CourseCreateRequest;
-import org.example.metadata.course.model.CourseLevel;
-import org.example.metadata.course.model.CourseUpdateRequest;
+import org.example.metadata.course.model.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 public class CourseHandlerTestHelper {
 
@@ -16,8 +14,8 @@ public class CourseHandlerTestHelper {
                 "Course description",
                 CourseCategory.MATHEMATICS,
                 1L,
-                List.of(1L, 2L, 3L),
-                List.of(4L, 5L, 6L),
+                Set.of(1L, 2L, 3L),
+                Set.of(4L, 5L, 6L),
                 LocalDate.now(),
                 LocalDate.now().plusWeeks(12),
                 4.75,
@@ -36,8 +34,8 @@ public class CourseHandlerTestHelper {
                 "Course description",
                 CourseCategory.MATHEMATICS,
                 1L,
-                List.of(1L, 2L, 3L),
-                List.of(4L, 5L, 6L),
+                Set.of(1L, 2L, 3L),
+                Set.of(4L, 5L, 6L),
                 LocalDate.now(),
                 LocalDate.now().plusWeeks(12),
                 5.0,
@@ -48,5 +46,9 @@ public class CourseHandlerTestHelper {
                 599.00,
                 true
         );
+    }
+
+    public CourseStudentsRequest getStudentsRequest(){
+        return new CourseStudentsRequest(Set.of(4L, 6L, 7L));
     }
 }

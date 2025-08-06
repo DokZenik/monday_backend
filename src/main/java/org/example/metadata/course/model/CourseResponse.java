@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,9 +25,9 @@ public class CourseResponse {
 
     private Long creatorId;
 
-    private List<Long> teacherIds;
+    private Set<Long> teacherIds;
 
-    private List<Long> studentIds;
+    private Set<Long> studentIds;
 
     private LocalDate startDate;
 

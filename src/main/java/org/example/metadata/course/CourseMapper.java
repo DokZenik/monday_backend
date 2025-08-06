@@ -12,6 +12,7 @@ import org.example.metadata.exceptions.MondayException;
 
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Set;
 
 public class CourseMapper {
 
@@ -82,8 +83,8 @@ public class CourseMapper {
 
         try {
 
-            List<Long> teacherIds = mapper.readValue(entity.getTeacherIds(), new TypeReference<>() { });
-            List<Long> studentIds = mapper.readValue(entity.getStudentIds(), new TypeReference<>() { });
+            Set<Long> teacherIds = mapper.readValue(entity.getTeacherIds(), new TypeReference<>() { });
+            Set<Long> studentIds = mapper.readValue(entity.getStudentIds(), new TypeReference<>() { });
             List<String> skills = mapper.readValue(entity.getSkills(), new TypeReference<>() { });
 
             Long duration = ChronoUnit.DAYS.between(entity.getStartDate(), entity.getEndDate()) / 7;

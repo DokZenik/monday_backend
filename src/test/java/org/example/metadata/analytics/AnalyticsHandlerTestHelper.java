@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 public class AnalyticsHandlerTestHelper {
 
@@ -31,8 +32,8 @@ public class AnalyticsHandlerTestHelper {
                 "Course description",
                 CourseCategory.MATHEMATICS,
                 creatorId,
-                List.of(1L, 2L, 3L),
-                List.of(4L, 5L, 6L),
+                Set.of(1L, 2L, 3L),
+                Set.of(4L, 5L, 6L),
                 LocalDate.now(),
                 LocalDate.now().plusWeeks(12),
                 4.75,

@@ -6,10 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.example.metadata.course.model.CourseCreateRequest;
-import org.example.metadata.course.model.CourseResponse;
-import org.example.metadata.course.model.CourseUpdateRequest;
-import org.example.metadata.course.model.CoursesResponse;
+import org.example.metadata.course.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +40,30 @@ public class CourseHandler {
     @PutMapping("/{id}")
     public ResponseEntity<CourseResponse> update(@RequestBody CourseUpdateRequest course, @PathVariable Long id) {
         return ResponseEntity.ok(courseService.update(course, id));
+    }
+
+    @Operation(summary = "Enroll students to the course")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Students enrolled successfully",
+                    content = @Content(schema = @Schema(implementation = CourseResponse.class))),
+        @ApiResponse(responseCode = "400", description = "Invalid input",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
+    @PatchMapping("/attach/{id}")
+    public ResponseEntity<CourseResponse> attach(@RequestBody CourseStudentsRequest request, @PathVariable Long id) {
+        return ResponseEntity.ok(courseService.attach(request, id));
+    }
+
+    @Operation(summary = "Remove students from the course")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Students removed successfully",
+                    content = @Content(schema = @Schema(implementation = CourseResponse.class))),
+        @ApiResponse(responseCode = "400", description = "Invalid input",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
+    @PatchMapping("/detach/{id}")
+    public ResponseEntity<CourseResponse> detach(@RequestBody CourseStudentsRequest request, @PathVariable Long id) {
+        return ResponseEntity.ok(courseService.detach(request, id));
     }
 
     @Operation(summary = "Get all courses")
