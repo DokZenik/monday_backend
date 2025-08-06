@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.example.metadata.TestcontainersConfiguration;
 import org.example.metadata.course.model.CourseCreateRequest;
 import org.example.metadata.course.model.CourseResponse;
+import org.example.metadata.course.model.CourseUpdateRequest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,7 @@ class CourseHandlerTest {
     @Test
     void coursesApiTest() {
         CourseCreateRequest createRequest = helper.getCreateRequest();
+        CourseUpdateRequest updateRequest = helper.getUpdateRequest();
         ResponseEntity<?> response;
 
         response = restTemplate
@@ -69,6 +71,16 @@ class CourseHandlerTest {
         assertNotNull(responseBody);
         assertEquals(createRequest.getTitle(), responseBody.getTitle());
 
+        restTemplate.put("/courses/" + responseBody.getId(), updateRequest);
+
+        response = restTemplate.getForEntity("/courses/" + responseBody.getId(), CourseResponse.class);
+
+        responseBody = (CourseResponse) response.getBody();
+
+        assertNotNull(responseBody);
+        assertEquals(updateRequest.getTitle(), responseBody.getTitle());
+        assertEquals(updateRequest.getRating(), responseBody.getRating());
+        assertEquals(updateRequest.getSkills(), responseBody.getSkills());
 
         restTemplate.delete("/courses/" + responseBody.getId());
 

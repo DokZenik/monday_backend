@@ -8,16 +8,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.example.metadata.course.model.CourseCreateRequest;
 import org.example.metadata.course.model.CourseResponse;
+import org.example.metadata.course.model.CourseUpdateRequest;
 import org.example.metadata.course.model.CoursesResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/courses")
@@ -38,6 +33,18 @@ public class CourseHandler {
         return ResponseEntity.ok(courseService.create(course));
     }
 
+    @Operation(summary = "Update a course")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Course updated successfully",
+                    content = @Content(schema = @Schema(implementation = CourseResponse.class))),
+        @ApiResponse(responseCode = "400", description = "Invalid input",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
+    @PutMapping("/{id}")
+    public ResponseEntity<CourseResponse> update(@RequestBody CourseUpdateRequest course, @PathVariable Long id) {
+        return ResponseEntity.ok(courseService.update(course, id));
+    }
+
     @Operation(summary = "Get all courses")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Courses retrieved successfully",
@@ -54,7 +61,7 @@ public class CourseHandler {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Course retrieved successfully",
                     content = @Content(schema = @Schema(implementation = CourseResponse.class))),
-        @ApiResponse(responseCode = "400", description = "Student not found",
+        @ApiResponse(responseCode = "400", description = "Course not found",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(responseCode = "500", description = "Server error",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))

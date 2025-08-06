@@ -1,20 +1,17 @@
 package org.example.metadata.course.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.metadata.course.CourseMapper;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Data
-public class CourseResponse {
-
-    private Long id;
+@NoArgsConstructor
+@AllArgsConstructor
+public class CourseUpdateRequest {
 
     private String title;
 
@@ -32,8 +29,6 @@ public class CourseResponse {
 
     private LocalDate endDate;
 
-    private String duration;
-
     private Double rating;
 
     private CourseLevel level;
@@ -47,4 +42,8 @@ public class CourseResponse {
     private Double price;
 
     private Boolean published;
+
+    public CourseEntity toEntity(Long courseId) {
+        return CourseMapper.toEntity(this, courseId);
+    }
 }
