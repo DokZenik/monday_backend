@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,9 +18,21 @@ public class AssignmentResponse {
 
     private Long courseId;
 
+    private Long teacherId;
+
     private AssignmentType type;
+
+    private AssignmentStatus status;
+
+    private String description;
 
     private Integer maxScore;
 
-    private Date dueDate;
+    private LocalDateTime dueDate;
+
+    private List<AttachedFile> attachedFiles;
+
+    private String timeRemaining;
+
+    private Integer submissions;
 }

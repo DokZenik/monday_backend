@@ -1,10 +1,7 @@
 package org.example.metadata.assignment;
 
 import lombok.RequiredArgsConstructor;
-import org.example.metadata.assignment.model.AssignmentCreateRequest;
-import org.example.metadata.assignment.model.AssignmentEntity;
-import org.example.metadata.assignment.model.AssignmentResponse;
-import org.example.metadata.assignment.model.AssignmentsResponse;
+import org.example.metadata.assignment.model.*;
 import org.example.metadata.exceptions.MondayException;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +17,13 @@ public class AssignmentService {
 
     public AssignmentResponse create(AssignmentCreateRequest request) {
         return assignmentRepository.save(request.toEntity()).toResponse();
+    }
+
+    public AssignmentResponse updateById(AssignmentUpdateRequest request, Long assignmentId) {
+
+        AssignmentEntity assignmentEntity = assignmentRepository.findById(assignmentId).get();
+
+        return assignmentRepository.save(request.toEntity(assignmentEntity)).toResponse();
     }
 
     public AssignmentsResponse getAll() {
