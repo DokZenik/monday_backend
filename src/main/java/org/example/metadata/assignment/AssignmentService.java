@@ -3,6 +3,7 @@ package org.example.metadata.assignment;
 import lombok.RequiredArgsConstructor;
 import org.example.metadata.assignment.model.*;
 import org.example.metadata.exceptions.MondayException;
+import org.example.metadata.submission.SubmissionService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,16 +15,18 @@ import java.util.List;
 public class AssignmentService {
 
     private final AssignmentRepository assignmentRepository;
+    private final SubmissionService submissionService;
 
     public AssignmentResponse create(AssignmentCreateRequest request) {
-        return assignmentRepository.save(request.toEntity()).toResponse();
+        return assignmentRepository.save(request.toEntity()).toResponse(0);
     }
 
     public AssignmentResponse updateById(AssignmentUpdateRequest request, Long assignmentId) {
 
         AssignmentEntity assignmentEntity = assignmentRepository.findById(assignmentId).get();
 
-        return assignmentRepository.save(request.toEntity(assignmentEntity)).toResponse();
+        return assignmentRepository.save(request.toEntity(assignmentEntity))
+                .toResponse(submissionService.getAssignmentSubmissionsCount(assignmentId));
     }
 
     public AssignmentsResponse getAll() {
@@ -31,7 +34,9 @@ public class AssignmentService {
         List<AssignmentResponse> coursesResponseList = new ArrayList<>();
 
         while (iterator.hasNext()) {
-            coursesResponseList.add(iterator.next().toResponse());
+            AssignmentEntity assignmentEntity = iterator.next();
+            coursesResponseList.add(assignmentEntity
+                    .toResponse(submissionService.getAssignmentSubmissionsCount(assignmentEntity.getId())));
         }
 
         return new AssignmentsResponse(coursesResponseList);
@@ -42,7 +47,9 @@ public class AssignmentService {
         List<AssignmentResponse> coursesResponseList = new ArrayList<>();
 
         while (iterator.hasNext()) {
-            coursesResponseList.add(iterator.next().toResponse());
+            AssignmentEntity assignmentEntity = iterator.next();
+            coursesResponseList.add(assignmentEntity.toResponse(submissionService.
+                    getAssignmentSubmissionsCount(assignmentEntity.getId())));
         }
 
         return coursesResponseList;
@@ -50,7 +57,7 @@ public class AssignmentService {
 
     public AssignmentResponse getById(Long id) {
         return assignmentRepository.findById(id)
-                .map(AssignmentEntity::toResponse)
+                .map(e -> e.toResponse(submissionService.getAssignmentSubmissionsCount(id)))
                 .orElseThrow(() -> new MondayException(String.format("Assignment with id %d not found", id)));
     }
 

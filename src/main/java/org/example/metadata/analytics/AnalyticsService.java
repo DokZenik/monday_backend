@@ -55,6 +55,7 @@ public class AnalyticsService {
                     studentId,
                     node.get("score").asInt(),
                     node.get("feedback").asText(),
+                    node.get("teacher_id").asLong(),
                     node.get("graded_at").asLong()
             ));
         }

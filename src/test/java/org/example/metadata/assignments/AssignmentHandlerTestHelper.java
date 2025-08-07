@@ -1,6 +1,7 @@
 package org.example.metadata.assignments;
 
 import org.example.metadata.assignment.model.*;
+import org.example.metadata.submission.model.SubmissionCreateRequest;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -40,5 +41,9 @@ public class AssignmentHandlerTestHelper {
                 100,
                 LocalDateTime.now(),
                 files);
+    }
+
+    public SubmissionCreateRequest getSubmissionCreateRequest() {
+        return new SubmissionCreateRequest(1L,"a",null);
     }
 }

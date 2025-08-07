@@ -2,6 +2,7 @@ package org.example.metadata.assignment.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import org.example.metadata.exceptions.MondayException;
 
 public enum AssignmentType {
     TEST ("Test"),
@@ -28,7 +29,13 @@ public enum AssignmentType {
 
     @JsonCreator
     public static AssignmentType fromString(String value) {
-        return AssignmentType.valueOf(value.toUpperCase());
+
+        for (AssignmentType assignmentType : AssignmentType.values()) {
+            if (assignmentType.type.equalsIgnoreCase(value)) {
+                return assignmentType;
+            }
+        }
+        throw new MondayException(String.format("Assigment type %s has not been found", value));
     }
 
 }

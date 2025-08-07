@@ -47,3 +47,19 @@ databaseChangeLog:
         - sqlFile:
             path: sql/assigment/02-alter-assignments.sql
             relativeToChangelogFile: true
+
+  - changeSet:
+      id: 08
+      author: you
+      changes:
+        - sqlFile:
+            path: sql/submission/01-create-submissions.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: 09
+      author: you
+      changes:
+        - sqlFile:
+            path: sql/grade/02-alter-grades.sql
+            relativeToChangelogFile: true

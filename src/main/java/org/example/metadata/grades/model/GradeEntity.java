@@ -28,10 +28,13 @@ public class GradeEntity {
     @Column("feedback")
     private String feedback;
 
+    @Column("teacher_id")
+    private Long teacherId;
+
     @Column("graded_at")
     private Long timestamp;
 
     public GradeResponse toResponse() {
-        return new GradeResponse(id, assignmentId, studentId, score, feedback, timestamp);
+        return new GradeResponse(id, assignmentId, studentId, score, feedback, teacherId, timestamp);
     }
 }
