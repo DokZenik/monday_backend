@@ -10,6 +10,7 @@ public class GradeHandlerTestHelper {
                 1L,
                 68,
                 "aboba",
+                1L,
                 1L);
     }
 }

@@ -68,7 +68,7 @@ public class AnalyticsHandlerTest {
         CourseResponse courseResponse = (CourseResponse) response.getBody();
 
         response = restTemplate
-                .postForEntity("/assignments", helper.getAssignmentCreateRequest(courseResponse.getId()), AssignmentResponse.class);
+                .postForEntity("/assignments", helper.getAssignmentCreateRequest(courseResponse.getId(), teacherResponse.getId()), AssignmentResponse.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
 

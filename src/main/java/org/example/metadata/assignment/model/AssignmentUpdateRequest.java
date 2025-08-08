@@ -11,12 +11,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AssignmentCreateRequest {
+public class AssignmentUpdateRequest {
     private String title;
-
-    private Long courseId;
-
-    private Long teacherId;
 
     private AssignmentType type;
 
@@ -30,8 +26,9 @@ public class AssignmentCreateRequest {
 
     private List<AttachedFile> attachedFiles;
 
-    public AssignmentEntity toEntity() {
+    public AssignmentEntity toEntity(AssignmentEntity oldEntity) {
 
-        return AssignmentMapper.createRequestToEntity(this);
+        return AssignmentMapper.updateRequestToEntity(this, oldEntity);
+
     }
 }

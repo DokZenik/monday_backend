@@ -2,8 +2,10 @@ package org.example.metadata.analytics;
 
 import org.example.metadata.analytics.models.AnalyticsRequest;
 import org.example.metadata.assignment.model.AssignmentCreateRequest;
+import org.example.metadata.assignment.model.AssignmentStatus;
 import org.example.metadata.assignment.model.AssignmentType;
 import org.example.metadata.course.model.CourseCategory;
+import org.example.metadata.assignment.model.AttachedFile;
 import org.example.metadata.course.model.CourseCreateRequest;
 import org.example.metadata.course.model.CourseLevel;
 import org.example.metadata.grades.model.GradeCreateRequest;
@@ -15,6 +17,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AnalyticsHandlerTestHelper {
 
@@ -46,13 +50,23 @@ public class AnalyticsHandlerTestHelper {
         );
     }
 
-    public AssignmentCreateRequest getAssignmentCreateRequest(Long courseId) {
+    public AssignmentCreateRequest getAssignmentCreateRequest(Long courseId, Long teacherId) {
+
+        List<AttachedFile> files = new ArrayList<>();
+        files.add(new AttachedFile("file1_title","file1_url"));
+        files.add(new AttachedFile("file2_title","file2_url"));
+
         return new AssignmentCreateRequest(
                 "My task",
                 courseId,
-                AssignmentType.HOME_TASK,
+                teacherId,
+                AssignmentType.TEST,
+                AssignmentStatus.PENDING,
+                "Task Description",
                 100,
-                Date.valueOf(LocalDateTime.now().toLocalDate()));
+                LocalDateTime.now(),
+                files);
+
     }
 
     public GradeCreateRequest getGradeCreateRequest(Long assignmentId, Long studentId) {
@@ -61,6 +75,7 @@ public class AnalyticsHandlerTestHelper {
                 studentId,
                 68,
                 "aboba",
+                1L,
                 1L);
     }
 
