@@ -2,6 +2,8 @@ package org.example.metadata.submission.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 public class SubmissionCreateRequest {
 
+    @NotNull(message = "Student id shouldn't be null")
+    @PositiveOrZero(message = "Student id shouldn't be negative")
     private Long studentId;
 
     private String text;

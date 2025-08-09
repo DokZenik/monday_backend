@@ -44,9 +44,12 @@ class CourseHandlerTest {
     @Test
     void coursesApiTest() {
         CourseCreateRequest createRequest = helper.getCreateRequest();
+        CourseCreateRequest invalidCreateRequest = helper.getInvalidCreateRequest();
         CourseUpdateRequest updateRequest = helper.getUpdateRequest();
+        CourseUpdateRequest invalidUpdateRequest = helper.getInvalidUpdateRequest();
         CourseStudentsRequest studentsRequest = helper.getStudentsRequest();
         ResponseEntity<?> response;
+        ResponseEntity<?> invalidResponse;
 
         response = restTemplate
                 .postForEntity("/courses", createRequest, CourseResponse.class);
@@ -56,8 +59,16 @@ class CourseHandlerTest {
         assertNotNull(responseBody);
         assertEquals(createRequest.getTitle(), responseBody.getTitle());
 
+        invalidResponse = restTemplate
+                .postForEntity("/courses",invalidCreateRequest , JsonNode.class);
+        JsonNode json = (JsonNode) invalidResponse.getBody();
+
+        assertTrue(invalidResponse.getStatusCode().is4xxClientError());
+
+        assertEquals("Price can't be negative", json.get("message").asText());
+
         response = restTemplate.getForEntity("/courses", JsonNode.class);
-        JsonNode json = (JsonNode) response.getBody();
+        json = (JsonNode) response.getBody();
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(json.get("_embedded").size(), 1);
@@ -85,6 +96,14 @@ class CourseHandlerTest {
         assertEquals(updateRequest.getTitle(), responseBody.getTitle());
         assertEquals(updateRequest.getRating(), responseBody.getRating());
         assertEquals(updateRequest.getSkills(), responseBody.getSkills());
+
+        restTemplate.put("/courses/" + responseBody.getId(), invalidUpdateRequest);
+
+        response = restTemplate.getForEntity("/courses/" + responseBody.getId(), CourseResponse.class);
+
+        responseBody = (CourseResponse) response.getBody();
+        assertNotNull(responseBody);
+        assertEquals(updateRequest.getStartDate(), responseBody.getStartDate());
 
         responseBody = restTemplate.patchForObject("/courses/attach/" + responseBody.getId(), studentsRequest, CourseResponse.class);
 

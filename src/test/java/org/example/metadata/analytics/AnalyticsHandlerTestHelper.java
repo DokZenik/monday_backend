@@ -12,13 +12,11 @@ import org.example.metadata.grades.model.GradeCreateRequest;
 import org.example.metadata.student.model.StudentCreateRequest;
 import org.example.metadata.teachers.model.TeacherCreateRequest;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AnalyticsHandlerTestHelper {
 

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.metadata.course.model.*;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class CourseHandler {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping
-    public ResponseEntity<CourseResponse> save(@RequestBody CourseCreateRequest course) {
+    public ResponseEntity<CourseResponse> save(@Valid @RequestBody CourseCreateRequest course) {
         return ResponseEntity.ok(courseService.create(course));
     }
 
@@ -38,7 +39,8 @@ public class CourseHandler {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<CourseResponse> update(@RequestBody CourseUpdateRequest course, @PathVariable Long id) {
+    public ResponseEntity<CourseResponse> update(@Valid @RequestBody CourseUpdateRequest course,
+                                                 @PathVariable Long id) {
         return ResponseEntity.ok(courseService.update(course, id));
     }
 

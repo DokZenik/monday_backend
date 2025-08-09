@@ -20,6 +20,18 @@ public class SubmissionHandlerTestHelper {
                 "Submission Text",
                 files);
     }
+
+    public SubmissionCreateRequest getInvalidCreateRequest() {
+
+        List<AttachedFile> files = new ArrayList<>();
+        files.add(new AttachedFile("file1_title","file1_url"));
+        files.add(new AttachedFile("file2_title","file2_url"));
+
+        return new SubmissionCreateRequest(
+                -1L,
+                "Submission Text",
+                files);
+    }
     public GradeCreateRequest getGradeCreateRequest() {
         return new GradeCreateRequest(
                 1L,
