@@ -15,8 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @Import(TestcontainersConfiguration.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -38,6 +37,7 @@ class GradeHandlerTest {
     @Test
     void gradeApiTest() {
         GradeCreateRequest createRequest = helper.getCreateRequest();
+        GradeCreateRequest invalidCreateRequest = helper.getInvalidCreateRequest();
         ResponseEntity<?> response;
 
         response = restTemplate
@@ -65,6 +65,13 @@ class GradeHandlerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(json.get("_embedded").size(), 1);
 
+        response = restTemplate
+                .postForEntity("/grades", invalidCreateRequest, JsonNode.class);
+
+        json = (JsonNode) response.getBody();
+
+        assertTrue(response.getStatusCode().is4xxClientError());
+        assertEquals("Score can't be negative", json.get("message").asText());
     }
 
 }

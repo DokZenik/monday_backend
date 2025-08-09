@@ -27,6 +27,24 @@ public class AssignmentHandlerTestHelper {
                 files);
     }
 
+    public AssignmentCreateRequest getInvalidCreateRequest() {
+
+        List<AttachedFile> files = new ArrayList<>();
+        files.add(new AttachedFile("file1_title","file1_url"));
+        files.add(new AttachedFile("file2_title","file2_url"));
+
+        return new AssignmentCreateRequest(
+                "My task",
+                123L,
+                456L,
+                AssignmentType.TEST,
+                AssignmentStatus.PENDING,
+                "Task Description",
+                100,
+                null,
+                files);
+    }
+
     public AssignmentUpdateRequest getUpdateRequest() {
 
         List<AttachedFile> files = new ArrayList<>();
@@ -39,6 +57,22 @@ public class AssignmentHandlerTestHelper {
                 AssignmentStatus.PENDING,
                 "Task Description",
                 100,
+                LocalDateTime.now(),
+                files);
+    }
+
+    public AssignmentUpdateRequest getInvalidUpdateRequest() {
+
+        List<AttachedFile> files = new ArrayList<>();
+        files.add(new AttachedFile("file1_title","file1_url"));
+        files.add(new AttachedFile("file2_title","file2_url"));
+
+        return new AssignmentUpdateRequest(
+                "My updated task",
+                AssignmentType.TEST,
+                AssignmentStatus.PENDING,
+                "Task Description",
+                -1,
                 LocalDateTime.now(),
                 files);
     }

@@ -39,9 +39,11 @@ public class SubmissonHandlerTest {
     @Test
     void submissionApiTest(){
         SubmissionCreateRequest createRequest = helper.getCreateRequest();
+        SubmissionCreateRequest invalidCreateRequest = helper.getInvalidCreateRequest();
         GradeCreateRequest gradeCreateRequest = helper.getGradeCreateRequest();
         ResponseEntity<?> response;
         SubmissionResponse responseBody;
+        JsonNode json;
 
         response = restTemplate.postForEntity(String.format("/assignment/%d/submission", 1L), createRequest, SubmissionResponse.class);
         responseBody = (SubmissionResponse) response.getBody();
@@ -57,6 +59,15 @@ public class SubmissonHandlerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(createRequest.getText(), responseBody.getText());
         assertEquals(responseBody.getScore(), null);
+
+        response = restTemplate.postForEntity(String.format("/assignment/%d/submission", 1L), invalidCreateRequest, JsonNode.class);
+        json = (JsonNode) response.getBody();
+
+        assertNotNull(json);
+        assertTrue(response.getStatusCode().is4xxClientError());
+        assertEquals("Student id shouldn't be negative", json.get("message").asText());
+
+
 
         restTemplate.postForEntity("/grades", gradeCreateRequest, JsonNode.class);
 

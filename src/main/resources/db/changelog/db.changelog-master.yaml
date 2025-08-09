@@ -45,7 +45,7 @@ databaseChangeLog:
       author: you
       changes:
         - sqlFile:
-            path: sql/assigment/02-alter-assignments.sql
+            path: sql/course/02-alter-courses.sql
             relativeToChangelogFile: true
 
   - changeSet:
@@ -53,11 +53,19 @@ databaseChangeLog:
       author: you
       changes:
         - sqlFile:
-            path: sql/submission/01-create-submissions.sql
+            path: sql/assigment/02-alter-assignments.sql
             relativeToChangelogFile: true
 
   - changeSet:
       id: 09
+      author: you
+      changes:
+        - sqlFile:
+            path: sql/submission/01-create-submissions.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: 10
       author: you
       changes:
         - sqlFile:

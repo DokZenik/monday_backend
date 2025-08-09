@@ -13,7 +13,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseCreateRequest {
+public class CourseUpdateRequest {
 
     @NotBlank(message = "Title can't be null")
     private String title;
@@ -62,7 +62,7 @@ public class CourseCreateRequest {
     @NotNull(message = "Published can't be null")
     private Boolean published;
 
-    public CourseEntity toEntity() {
-        return CourseMapper.toEntity(this);
+    public CourseEntity toEntity(Long courseId) {
+        return CourseMapper.toEntity(this, courseId);
     }
 }

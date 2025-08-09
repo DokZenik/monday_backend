@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.metadata.analytics.models.AnalyticsRequest;
 import org.example.metadata.analytics.models.AnalyticsResponse;
@@ -30,7 +31,7 @@ public class AnalyticsHandler {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping
-    public ResponseEntity<AnalyticsResponse> getAll(@RequestBody AnalyticsRequest request) {
+    public ResponseEntity<AnalyticsResponse> getAll(@Valid @RequestBody AnalyticsRequest request) {
         return ResponseEntity.ok(analyticsService.getAnalytics(request));
     }
 }

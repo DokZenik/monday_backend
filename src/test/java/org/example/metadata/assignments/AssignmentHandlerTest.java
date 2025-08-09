@@ -43,6 +43,8 @@ class AssignmentHandlerTest {
         AssignmentCreateRequest createRequest = helper.getCreateRequest();
         AssignmentUpdateRequest updateRequest = helper.getUpdateRequest();
         SubmissionCreateRequest submissionCreateRequest = helper.getSubmissionCreateRequest();
+        AssignmentCreateRequest invalidCreateRequest = helper.getInvalidCreateRequest();
+        AssignmentUpdateRequest invalidUpdateRequest = helper.getInvalidUpdateRequest();
         ResponseEntity<?> response;
 
         response = restTemplate
@@ -57,8 +59,18 @@ class AssignmentHandlerTest {
         restTemplate.postForEntity(String.format("/assignment/%d/submission", responseBody.getId()), submissionCreateRequest, JsonNode.class);
         restTemplate.postForEntity(String.format("/assignment/%d/submission", responseBody.getId()), submissionCreateRequest, JsonNode.class);
 
-        response = restTemplate.getForEntity("/assignments", JsonNode.class);
+        response = restTemplate
+                .postForEntity("/assignments", invalidCreateRequest, JsonNode.class);
+
         JsonNode json = (JsonNode) response.getBody();
+
+        assertNotNull(response);
+        assertNotNull(json);
+        assertTrue(response.getStatusCode().is4xxClientError());
+        assertEquals("Due date can't be null", json.get("message").asText());
+
+        response = restTemplate.getForEntity("/assignments", JsonNode.class);
+        json = (JsonNode) response.getBody();
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(json.get("_embedded").size(), 1);
@@ -83,6 +95,14 @@ class AssignmentHandlerTest {
         json = (JsonNode) response.getBody();
         assertNotNull(json);
         assertEquals(updateRequest.getTitle(), json.get("title").asText());
+
+        restTemplate.put(String.format("/assignments/%d", json.get("id").asLong()), invalidUpdateRequest);
+
+        response = restTemplate.getForEntity("/assignments/" + json.get("id").asLong(), JsonNode.class);
+        assertNotNull(response);
+        assertNotNull(json);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
 
         restTemplate.delete("/assignments/" + responseBody.getId());
 
