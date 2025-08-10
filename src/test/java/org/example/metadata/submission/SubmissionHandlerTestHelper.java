@@ -28,7 +28,7 @@ public class SubmissionHandlerTestHelper {
         files.add(new AttachedFile("file2_title","file2_url"));
 
         return new SubmissionCreateRequest(
-                -1L,
+                null,
                 "Submission Text",
                 files);
     }

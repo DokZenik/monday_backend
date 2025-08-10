@@ -30,7 +30,7 @@ public class CourseHandlerTestHelper {
 
     public CourseCreateRequest getInvalidCreateRequest() {
         return new CourseCreateRequest(
-                "My course",
+                "",
                 "Course description",
                 CourseCategory.MATHEMATICS,
                 1L,
@@ -43,7 +43,7 @@ public class CourseHandlerTestHelper {
                 "/placeholder.svg?height=200&width=300&text=Math",
                 "from-blue-500 to-purple-600",
                 List.of("Calculus", "Linear Algebra", "Statistics", "Problem Solving"),
-                -1.0,
+                100.0,
                 false
         );
     }
@@ -69,7 +69,7 @@ public class CourseHandlerTestHelper {
     }
     public CourseUpdateRequest getInvalidUpdateRequest() {
         return new CourseUpdateRequest(
-                "My course updated",
+                null,
                 "Course description",
                 CourseCategory.MATHEMATICS,
                 1L,

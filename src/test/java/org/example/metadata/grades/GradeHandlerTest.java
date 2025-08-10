@@ -71,7 +71,7 @@ class GradeHandlerTest {
         json = (JsonNode) response.getBody();
 
         assertTrue(response.getStatusCode().is4xxClientError());
-        assertEquals("Score can't be negative", json.get("message").asText());
+        assertEquals("Student id can't be null", json.get("message").asText());
     }
 
 }

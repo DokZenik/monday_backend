@@ -71,3 +71,11 @@ databaseChangeLog:
         - sqlFile:
             path: sql/grade/02-alter-grades.sql
             relativeToChangelogFile: true
+
+  - changeSet:
+      id: 11
+      author: you
+      changes:
+        - sqlFile:
+            path: sql/assigment/03-alter-assignments.sql
+            relativeToChangelogFile: true

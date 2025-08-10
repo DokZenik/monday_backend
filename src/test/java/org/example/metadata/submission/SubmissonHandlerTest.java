@@ -65,7 +65,7 @@ public class SubmissonHandlerTest {
 
         assertNotNull(json);
         assertTrue(response.getStatusCode().is4xxClientError());
-        assertEquals("Student id shouldn't be negative", json.get("message").asText());
+        assertEquals("Student id can't be null", json.get("message").asText());
 
 
 

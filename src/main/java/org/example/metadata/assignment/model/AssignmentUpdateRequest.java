@@ -2,7 +2,6 @@ package org.example.metadata.assignment.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,7 +28,6 @@ public class AssignmentUpdateRequest {
     private String description;
 
     @NotNull(message = "Max score can't be null")
-    @Positive(message = "Max score should be greater than 0")
     private Integer maxScore;
 
     @NotNull(message = "Due date can't be null")

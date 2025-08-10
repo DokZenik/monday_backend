@@ -65,7 +65,7 @@ class CourseHandlerTest {
 
         assertTrue(invalidResponse.getStatusCode().is4xxClientError());
 
-        assertEquals("Price can't be negative", json.get("message").asText());
+        assertEquals("Title can't be null", json.get("message").asText());
 
         response = restTemplate.getForEntity("/courses", JsonNode.class);
         json = (JsonNode) response.getBody();
@@ -103,7 +103,7 @@ class CourseHandlerTest {
 
         responseBody = (CourseResponse) response.getBody();
         assertNotNull(responseBody);
-        assertEquals(updateRequest.getStartDate(), responseBody.getStartDate());
+        assertEquals(updateRequest.getTitle(), responseBody.getTitle());
 
         responseBody = restTemplate.patchForObject("/courses/attach/" + responseBody.getId(), studentsRequest, CourseResponse.class);
 

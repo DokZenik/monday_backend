@@ -24,7 +24,6 @@ public class CourseUpdateRequest {
     private CourseCategory category;
 
     @NotNull(message = "Creator id can't be null")
-    @PositiveOrZero(message = "Creator id shouldn't be negative")
     private Long creatorId;
 
     @NotNull(message = "Teacher ids can't be null")
@@ -33,15 +32,12 @@ public class CourseUpdateRequest {
     private Set<Long> studentIds;
 
     @NotNull(message = "Start date can't be null")
-    @FutureOrPresent(message = "Start date can't be less than today")
     private LocalDate startDate;
 
     @NotNull(message = "End date can't be null")
-    @FutureOrPresent(message = "End date can't be less than today")
     private LocalDate endDate;
 
     @NotNull(message = "Rating can't be null")
-    @PositiveOrZero(message = "Rating shouldn't be negative")
     private Double rating;
 
     @NotNull(message = "Course level can't be null")
@@ -56,7 +52,6 @@ public class CourseUpdateRequest {
     private List<String> skills;
 
     @NotNull(message = "Price can't be null")
-    @PositiveOrZero(message = "Price can't be negative")
     private Double price;
 
     @NotNull(message = "Published can't be null")

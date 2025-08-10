@@ -1,7 +1,7 @@
 ALTER TABLE assignments
-    ADD COLUMN teacher_id BIGINT NOT NULL,
-    ADD COLUMN status VARCHAR(50) NOT NULL,
-    ADD COLUMN description TEXT NOT NULL,
+    ADD COLUMN teacher_id BIGINT,
+    ADD COLUMN status VARCHAR(50),
+    ADD COLUMN description TEXT,
     ADD COLUMN attached_files TEXT;
 
 ALTER TABLE assignments

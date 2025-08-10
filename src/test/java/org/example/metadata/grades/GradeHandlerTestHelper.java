@@ -17,8 +17,8 @@ public class GradeHandlerTestHelper {
     public GradeCreateRequest getInvalidCreateRequest() {
         return new GradeCreateRequest(
                 1L,
-                1L,
-                -10,
+                null,
+                100,
                 "aboba",
                 1L,
                 1L);

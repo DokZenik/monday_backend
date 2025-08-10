@@ -68,11 +68,11 @@ public class AssignmentHandlerTestHelper {
         files.add(new AttachedFile("file2_title","file2_url"));
 
         return new AssignmentUpdateRequest(
-                "My updated task",
+                null,
                 AssignmentType.TEST,
                 AssignmentStatus.PENDING,
                 "Task Description",
-                -1,
+                100,
                 LocalDateTime.now(),
                 files);
     }
