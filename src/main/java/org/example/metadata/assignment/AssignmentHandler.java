@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.metadata.assignment.model.AssignmentCreateRequest;
 import org.example.metadata.assignment.model.AssignmentResponse;
@@ -29,7 +30,7 @@ public class AssignmentHandler {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping
-    public ResponseEntity<AssignmentResponse> save(@RequestBody AssignmentCreateRequest assignment) {
+    public ResponseEntity<AssignmentResponse> save(@Valid @RequestBody AssignmentCreateRequest assignment) {
         return ResponseEntity.ok(assignmentService.create(assignment));
     }
 
@@ -84,9 +85,8 @@ public class AssignmentHandler {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<AssignmentResponse> updateById(
-            @PathVariable Long id,
-            @RequestBody AssignmentUpdateRequest assignment) {
+    public ResponseEntity<AssignmentResponse> updateById(@PathVariable Long id,
+                                                         @Valid @RequestBody AssignmentUpdateRequest assignment) {
         return ResponseEntity.ok(assignmentService.updateById(assignment, id));
     }
 

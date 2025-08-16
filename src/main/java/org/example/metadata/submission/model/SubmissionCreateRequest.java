@@ -2,6 +2,7 @@ package org.example.metadata.submission.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SubmissionCreateRequest {
 
+    @NotNull(message = "Student id can't be null")
     private Long studentId;
 
     private String text;

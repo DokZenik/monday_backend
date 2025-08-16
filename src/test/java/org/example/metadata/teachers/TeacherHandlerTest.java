@@ -39,7 +39,9 @@ class TeacherHandlerTest {
     @Test
     void teachersApiTest() {
         TeacherCreateRequest createRequest = helper.getCreateRequest();
+        TeacherCreateRequest invalidCreateRequest = helper.getInvalidCreateRequest();
         ResponseEntity<?> response;
+        JsonNode json;
 
         response = restTemplate
                 .postForEntity("/teachers", createRequest, TeacherResponse.class);
@@ -49,8 +51,18 @@ class TeacherHandlerTest {
         assertNotNull(responseBody);
         assertEquals(createRequest.getFullName(), responseBody.getFullName());
 
+        response = restTemplate
+                .postForEntity("/teachers", invalidCreateRequest, JsonNode.class);
+
+        json = (JsonNode) response.getBody();
+
+        assertNotNull(json);
+        assertTrue(response.getStatusCode().is4xxClientError());
+        assertEquals("Full name can't be null", json.get("message").asText());
+
+
         response = restTemplate.getForEntity("/teachers", JsonNode.class);
-        JsonNode json = (JsonNode) response.getBody();
+        json = (JsonNode) response.getBody();
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(json.get("_embedded").size(), 1);

@@ -7,4 +7,8 @@ public class TeacherHandlerTestHelper {
     public TeacherCreateRequest getCreateRequest() {
         return new TeacherCreateRequest("Alevtina");
     }
+
+    public TeacherCreateRequest getInvalidCreateRequest() {
+        return new TeacherCreateRequest(null);
+    }
 }
