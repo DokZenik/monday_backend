@@ -13,4 +13,14 @@ public class GradeHandlerTestHelper {
                 1L,
                 1L);
     }
+
+    public GradeCreateRequest getInvalidCreateRequest() {
+        return new GradeCreateRequest(
+                1L,
+                null,
+                100,
+                "aboba",
+                1L,
+                1L);
+    }
 }

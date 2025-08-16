@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Import(TestcontainersConfiguration.class)
@@ -83,6 +84,11 @@ public class AnalyticsHandlerTest {
                 .postForEntity("/analytics", helper.getAnalyticsRequest(courseResponse.getId(), studentResponse.getGroupName()), JsonNode.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        response = restTemplate
+                .postForEntity("/analytics", helper.getAnalyticsRequest(-1L, studentResponse.getGroupName()), JsonNode.class);
+
+        assertTrue(response.getStatusCode().is4xxClientError());
 
     }
 }

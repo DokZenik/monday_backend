@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.metadata.teachers.model.TeacherCreateRequest;
 import org.example.metadata.teachers.model.TeacherResponse;
@@ -34,7 +35,7 @@ public class TeacherHandler {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping
-    public ResponseEntity<TeacherResponse> save(@RequestBody TeacherCreateRequest teacher) {
+    public ResponseEntity<TeacherResponse> save(@Valid @RequestBody TeacherCreateRequest teacher) {
         return ResponseEntity.ok(teacherService.create(teacher));
     }
 

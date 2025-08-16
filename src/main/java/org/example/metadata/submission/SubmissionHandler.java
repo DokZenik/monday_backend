@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.metadata.assignment.model.AssignmentResponse;
 import org.example.metadata.submission.model.SubmissionCreateRequest;
@@ -28,7 +29,8 @@ public class SubmissionHandler {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping
-    ResponseEntity<SubmissionResponse> save(@RequestBody SubmissionCreateRequest request, @PathVariable("id") Long id) {
+    ResponseEntity<SubmissionResponse> save(@Valid @RequestBody SubmissionCreateRequest request,
+                                            @PathVariable("id") Long id) {
         return ResponseEntity.ok(submissionService.create(request, id));
     }
 

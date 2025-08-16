@@ -39,6 +39,7 @@ class StudentsHandlerTest {
     @Test
     void studentsApiTest() {
         StudentCreateRequest createRequest = helper.getCreateRequest();
+        StudentCreateRequest invalidCreateRequest = helper.getInvalidCreateRequest();
         ResponseEntity<?> response;
 
         response = restTemplate
@@ -80,6 +81,15 @@ class StudentsHandlerTest {
         json = (JsonNode) response.getBody();
 
         assertEquals(String.format("Student with id %d not found", responseBody.getId()), json.get("message").asText());
+
+        response = restTemplate
+                .postForEntity("/students", invalidCreateRequest, JsonNode.class);
+
+        assertTrue(response.getStatusCode().is4xxClientError());
+
+        json = (JsonNode) response.getBody();
+
+        assertEquals("Full name can't be null", json.get("message").asText());
 
 
     }
