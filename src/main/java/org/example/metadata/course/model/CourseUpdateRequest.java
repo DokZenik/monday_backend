@@ -4,7 +4,9 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.metadata.chronable.Chronable;
 import org.example.metadata.course.CourseMapper;
+import org.example.metadata.validators.ValidChronable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,7 +15,8 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseUpdateRequest {
+@ValidChronable
+public class CourseUpdateRequest implements Chronable {
 
     @NotBlank(message = "Title can't be null")
     private String title;
