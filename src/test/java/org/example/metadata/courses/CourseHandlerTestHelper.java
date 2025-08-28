@@ -69,14 +69,14 @@ public class CourseHandlerTestHelper {
     }
     public CourseUpdateRequest getInvalidUpdateRequest() {
         return new CourseUpdateRequest(
-                null,
+                "Invalid title",
                 "Course description",
                 CourseCategory.MATHEMATICS,
                 1L,
                 Set.of(1L, 2L, 3L),
                 Set.of(4L, 5L, 6L),
-                LocalDate.now().minusDays(1),
-                LocalDate.now().plusWeeks(12),
+                LocalDate.now().plusDays(5),
+                LocalDate.now(),
                 5.0,
                 CourseLevel.ADVANCED,
                 "/placeholder.svg?height=200&width=300&text=Math",
